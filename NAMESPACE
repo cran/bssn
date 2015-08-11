@@ -1,0 +1,16 @@
+export(EMbssn)
+export(dbssn)
+export(pbssn)
+export(qbssn)
+export(rbssn)
+export(meanbssn)
+export(varbssn)
+export(skewbssn)
+export(kurtbssn)
+export(Rebssn)
+export(Fbssn)
+importFrom("stats","dnorm","integrate","nlminb","pnorm")
+importFrom("sn","psn","dsn","rsn","qsn")
+
+
+
