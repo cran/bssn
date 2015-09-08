@@ -8,7 +8,7 @@
 
 \title{Moments for the Birnbaum-Saunders model based on Skew-Normal distribution
 }
-\description{Mean, variance, skewness, kurtosis for the Birnbaum-Saunders model based on Skew-Normal distribution defined in Filidor et. al (2011).
+\description{Mean, variance, skewness and kurtosis for the Birnbaum-Saunders model based on Skew-Normal distribution defined in Filidor et. al (2011).
 }
 \usage{
 meanbssn(alpha=0.5,beta=1,lambda=2)

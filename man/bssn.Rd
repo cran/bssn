@@ -4,20 +4,25 @@
 \alias{pbssn}
 \alias{qbssn}
 \alias{rbssn}
+\alias{rmixbssn}
 
 \title{Birnbaum-Saunders model based on Skew-Normal distribution}
 
-\description{It provides the density, distribution function, quantile function, random number generator, likelihood function, moments and EM algorithm for Maximum Likelihood estimators for a given sample, all this for the three parameter Birnbaum-Saunders model based on Skew-Normal Distribution.
+\description{It provides the density, distribution function, quantile function, random number generator, likelihood function, moments and EM algorithm for Maximum Likelihood estimators for a given sample, all this for the three parameter Birnbaum-Saunders model based on Skew-Normal Distribution. Also, we have the random number generator for the mixture of Birbaum-Saunders model based on Skew-Normal distribution.
 }
 \usage{
 dbssn(ti, alpha=0.5, beta=1, lambda=2)
-pbssn(q, alpha=0.5, beta=1, lambda=2)
-qbssn(p, alpha=0.5, beta=1, lambda=2)
-rbssn(n, alpha=0.5, beta=1, lambda=2)
+pbssn(q,  alpha=0.5, beta=1, lambda=2)
+qbssn(p,  alpha=0.5, beta=1, lambda=2)
+rbssn(n,  alpha=0.5, beta=1, lambda=2)
+rmixbssn(n,alpha,beta,lambda,pii)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{ti,q}{
+\item{ti}{
+vector of observations.
+}
+  \item{q}{
 vector of quantiles.
 }
   \item{p}{
@@ -36,6 +41,8 @@ scale parameter.
 skewness parameter.
 }
 
+\item{pii}{Are weights adding to 1. Each one of them (alpha, beta and lambda) must be a vector of length g if you want to generate a random numbers from a mixture distribution BSSN.}
+
 }
 \details{
 If \code{alpha}, \code{sigma} or \code{lambda} are not specified they assume the default values of 0.5, 1 and 2, respectively, belonging to the Birnbaum-Saunders model based on Skew-Normal distribution denoted by \eqn{BSSN(0.5,1,2)}.
@@ -49,7 +56,7 @@ where \eqn{\phi(.)} and \eqn{\Phi(.)} are the standard normal density and cumula
 
 
 \value{
-\code{dbssn} gives the density, \code{pbssn} gives the distribution function, \code{qbssn} gives the quantile function, and \code{rbssn} generates a random sample.
+\code{dbssn} gives the density, \code{pbssn} gives the distribution function, \code{qbssn} gives the quantile function, \code{rbssn} generates a random sample and \code{rmixbssn} genrates a mixture random sample.
 
 The length of the result is determined by n for \code{rbssn}, and is the maximum of the lengths of the numerical arguments for the other functions \code{dbssn}, \code{pbssn} and \code{qbssn}.
 }
@@ -73,6 +80,7 @@ Santana, Lucia; Vilca, Filidor; Leiva, Victor (2011). Influence analysis in skew
 }
 
 \examples{
+\dontrun{
 ## Let's plot an Birnbaum-Saunders model based on Skew-Normal distribution!
 
 ## Density
@@ -96,8 +104,6 @@ Santana, Lucia; Vilca, Filidor; Leiva, Victor (2011). Influence analysis in skew
  col = c("deepskyblue4", "firebrick1", "darkmagenta", "aquamarine4"), lty=1:4,lwd=2,
  seg.len=2,cex=0.8,box.lty=0,bg=NULL)
 
- legend(-6.22,1.6,box.col="white", expression(paste("SN("*alpha,", "*gamma,","*sigma,")")),
- cex=1, box.lty=0,bg=NULL)
 
 #negative values of lambda
  y   <- seq(0,3,0.01)
@@ -138,8 +144,22 @@ Santana, Lucia; Vilca, Filidor; Leiva, Victor (2011). Influence analysis in skew
  sseq   <- seq(0,8,0.01)
  dens   <- dbssn(sseq,alpha=0.75,beta=1,lambda=3)
  lines(sseq,dens,col="red",lwd=2)
-}
 
+
+##Random Sample Histogram for Mixture of BSSN
+alpha=c(0.55,0.25);beta=c(1,1.5);lambda=c(3,2);pii=c(0.3,0.7)
+sample <- rmixbssn(n=1000,alpha,beta,lambda,pii)
+hist(sample$y,breaks = 70,freq = FALSE,main="")
+title(main="Histogram and True density")
+temp   <- seq(min(sample$y), max(sample$y), length.out=1000)
+lines(temp, (pii[1]*dbssn(temp, alpha[1], beta[1],lambda[1]))+(pii[2]*dbssn(temp, alpha[2]
+, beta[2],lambda[2])), col="red", lty=3, lwd=3) # the theoretical density
+lines(temp, pii[1]*dbssn(temp, alpha[1], beta[1],lambda[1]), col="blue", lty=2, lwd=3)
+# the first component
+lines(temp, pii[2]*dbssn(temp, alpha[2], beta[2],lambda[2]), col="green", lty=2, lwd=3)
+# the second component
+}
+}
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{Birnbaum-Saunders Skew-Normal}

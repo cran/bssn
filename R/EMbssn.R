@@ -1,8 +1,7 @@
-EMbssn <- function(ti,alpha,beta,delta,loglik=F,accuracy = 1e-8)
+EMbssn <- function(ti,alpha,beta,delta,loglik=F,accuracy = 1e-8,show.envelope="FALSE")
 {
   #Running the algorithm
-  out <- algEMbssn(ti,alpha,beta,delta,loglik=F,accuracy)
-
+  out <- algEMbssn(ti,alpha,beta,delta,loglik=F,accuracy,show.envelope)
 
   #show result
   cat('\n')
@@ -40,4 +39,4 @@ EMbssn <- function(ti,alpha,beta,delta,loglik=F,accuracy = 1e-8)
 }
 
 
-#EMbssn(ti,alpha0,beta0,delta0,loglik=T)
+# EMbssn(ti,alpha0,beta0,delta0,loglik=T,show.envelope=TRUE)

@@ -6,16 +6,18 @@ Birnbaum-Saunders model based on Skew-Normal distribution
 }
 \description{
 It provides the density, distribution function, quantile function,
-random number generator, likelihood function, moments and EM algorithm for
-Maximum Likelihood estimators for a given sample, all this for the
-three parameter Birnbaum-Saunders model based on Skew-Normal Distribution.
+random number generator, reliability function, failure rate, likelihood function,
+moments and EM algorithm for Maximum Likelihood estimators, also empirical quantile
+and generated envelope for a given sample, all this for the three parameter
+Birnbaum-Saunders model based on Skew-Normal Distribution.
+Additionally, it provides the random number generator for the mixture of Birbaum-Saunders model based on Skew-Normal distribution.
 }
 \details{
 \tabular{ll}{
 Package: \tab bssn\cr
 Type: \tab Package\cr
-Version: \tab 1.0\cr
-Date: \tab 2015-08-30\cr
+Version: \tab 0.6\cr
+Date: \tab 2015-09-07\cr
 License: \tab GPL (>=2)\cr
 }
 }

@@ -3,14 +3,16 @@ export(dbssn)
 export(pbssn)
 export(qbssn)
 export(rbssn)
+export(rmixbssn)
 export(meanbssn)
 export(varbssn)
 export(skewbssn)
 export(kurtbssn)
 export(Rebssn)
 export(Fbssn)
-importFrom("stats","dnorm","integrate","nlminb","pnorm")
+importFrom("stats","dnorm","integrate","nlminb","pnorm","ppoints","qchisq","quantile","rchisq")
 importFrom("sn","psn","dsn","rsn","qsn")
+importFrom("graphics","plot")
 
 
 

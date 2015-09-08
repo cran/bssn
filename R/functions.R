@@ -2,14 +2,12 @@
 
 dbssn<-function(ti,alpha=0.5,beta=1,lambda=2)
 {
-  #if(!is.numeric(x)||!is.numeric(alpha)||!is.numeric(beta)||!is.numeric(lambda))
-  #{stop("non-numeric argument to mathematical function")}
-  if(alpha<=0){stop("alpha must be positive")}
-  if(beta<=0){stop("beta must be positive")}
-  at=(1/alpha)*(sqrt(ti/beta)-sqrt(beta/ti))
-  At=(ti^(-1.5)*(ti+beta))/(2*alpha*sqrt(beta))
-  pdf<-2*dnorm(at)*At*pnorm(lambda*at)
-  return(pdf)
+ if(alpha<=0){stop("alpha must be positive")}
+ if(beta<=0){stop("beta must be positive")}
+ at  <- (1/alpha)*(sqrt(ti/beta)-sqrt(beta/ti))
+ At  <- (ti^(-1.5)*(ti+beta))/(2*alpha*sqrt(beta))
+ pdf <- 2*dnorm(at)*At*pnorm(lambda*at)
+ return(pdf)
 }
 
 #dbssn(c(5,3),0.75,1,3)
@@ -18,11 +16,11 @@ pbssn<-function(q,alpha=0.5,beta=1,lambda=2)
 {
   if(alpha<=0){stop("alpha must be positive")}
   if(beta<=0){stop("beta must be positive")}
-  I<-vector(mode = "numeric", length = length(q))
+  I <- vector(mode = "numeric", length = length(q))
   for(i in 1:length(q))
   {
-    pdf<-function(x) 2*dnorm((1/alpha)*(sqrt(x/beta)-sqrt(beta/x)))*(x^(-1.5)*(x+beta))/(2*alpha*sqrt(beta))*pnorm(lambda*(1/alpha)*(sqrt(x/beta)-sqrt(beta/x)))
-    I[i]<-integrate(pdf,0,q[i])$value
+    pdf  <- function(x) 2*dnorm((1/alpha)*(sqrt(x/beta)-sqrt(beta/x)))*(x^(-1.5)*(x+beta))/(2*alpha*sqrt(beta))*pnorm(lambda*(1/alpha)*(sqrt(x/beta)-sqrt(beta/x)))
+    I[i] <- integrate(pdf,0,q[i])$value
   }
   return(I)
 }
@@ -34,8 +32,8 @@ qbssn <- function(p,alpha=0.5,beta=1,lambda=2)
   if(alpha<=0){ stop("alpha must be positive") }
   if(beta<=0) { stop("beta must be positive")  }
 
-  zp=qsn(p,xi=0,omega=1,lambda) #quantile for the skew-normal distribution
-  tp=(beta/4)*(alpha*zp + sqrt(alpha^2*zp^2 + 4))^2
+  zp <- qsn(p,xi=0,omega=1,lambda) #quantile for the skew-normal distribution
+  tp <- (beta/4)*(alpha*zp + sqrt(alpha^2*zp^2 + 4))^2
 
   return(tp)
 }
@@ -45,13 +43,12 @@ qbssn <- function(p,alpha=0.5,beta=1,lambda=2)
 
 rbssn<-function(n,alpha=0.5,beta=1,lambda=2)
 {
-  #library(sn)
   if(!is.numeric(n)||!is.numeric(alpha)||!is.numeric(beta)||!is.numeric(lambda))
   {stop("non-numeric argument to mathematical function")}
   if(alpha<=0){stop("alpha must be positive")}
   if(beta<=0){stop("beta must be positive")}
-  z<-rsn(n,0,1,lambda)
-  r<-beta*((alpha*z*0.5)+sqrt((alpha*z*0.5)^2+1))^2
+  z <- rsn(n,0,1,lambda)
+  r <- beta*((alpha*z*0.5)+sqrt((alpha*z*0.5)^2+1))^2
   return(r)
 }
 
@@ -62,10 +59,10 @@ rbssn<-function(n,alpha=0.5,beta=1,lambda=2)
 #------------------------------------------------#
 
 
-rmixbssn = function(n,alpha,beta,lambda,pii)
+rmixbssn <- function(n,alpha,beta,lambda,pii)
 {
-  y = vector()
-  G = length(alpha)
+  y <- vector()
+  G <- length(alpha)
 
   z <- sample(G,size=n,replace=TRUE,prob=pii)
   for(i in 1:n)
@@ -78,24 +75,11 @@ rmixbssn = function(n,alpha,beta,lambda,pii)
 #rmixbssn(50,alpha=c(0.75,0.25),beta=c(1,1.5),lambda=c(3,2),c(0.8,0.2))
 
 
-
-#pii <- c(0.3, 0.7); alpha=c(1,0.2); beta=c(2,5); lambda=c(1,2)
-
-##Random Sample Histogram for Mixture of BSSN
-#sample <- rmixbssn(n=1000,alpha,beta,lambda,pii)
-#hist(sample$y,breaks = 70,freq = FALSE,main="")
-#title(main="Histogram and True density")
-#temp <- seq(min(sample$y), max(sample$y), length.out=1000)
-#lines(temp, (pii[1]*dbssn(temp, alpha[1], beta[1],lambda[1]))+(pii[2]*dbssn(temp, alpha[2],  beta[2],lambda[2])), col="red", lty=3, lwd=3) # the theoretical density
-#lines(temp, pii[1]*dbssn(temp, alpha[1], beta[1],lambda[1]), col="blue", lty=2, lwd=3) # the  first component
-#lines(temp, pii[2]*dbssn(temp, alpha[2], beta[2],lambda[2]), col="green", lty=2, lwd=3) # the second component
-
-
 #---------------------------------#
 # Log-likelihood function of bssn #
 #---------------------------------#
 
-logLikbssn<-function(x,alpha=1, beta=1, lambda=0)
+logLikbssn <- function(x,alpha=1, beta=1, lambda=0)
 {
   return(sum(log(dbssn(x, alpha = alpha,
                        beta = beta,
@@ -108,12 +92,12 @@ logLikbssn<-function(x,alpha=1, beta=1, lambda=0)
 # BS-SN reliability function  #
 #--------------------------#
 
-Rebssn<-function(ti,alpha=0.5,beta=1,lambda=2)
+Rebssn <- function(ti,alpha=0.5,beta=1,lambda=2)
 {
   if(alpha<=0){stop("alpha must be positive")}
   if(beta<=0){stop("beta must be positive")}
-  at<-(1/alpha)*(sqrt(ti/beta)-sqrt(beta/ti))
-  S<-1-psn(at,0,1,lambda)
+  at <- (1/alpha)*(sqrt(ti/beta)-sqrt(beta/ti))
+  S  <- 1-psn(at,0,1,lambda)
   return(S)
 }
 
@@ -133,16 +117,16 @@ Rebssn<-function(ti,alpha=0.5,beta=1,lambda=2)
 #--------------------------#
 
 
-Fbssn<-function(ti,alpha=0.5,beta=1,lambda=2)
+Fbssn <- function(ti,alpha=0.5,beta=1,lambda=2)
 {
   if(alpha<=0){stop("alpha must be positive")}
   if(beta<=0){stop("beta must be positive")}
-  at<-(1/alpha)*(sqrt(ti/beta)-sqrt(beta/ti))
-  At=(ti^(-1.5)*(ti+beta))/(2*alpha*sqrt(beta))
+  at <- (1/alpha)*(sqrt(ti/beta)-sqrt(beta/ti))
+  At <- (ti^(-1.5)*(ti+beta))/(2*alpha*sqrt(beta))
   #require(sn)
-  f<-2*dnorm(at)*At*pnorm(lambda*at)
-  S<-1-psn(at,0,1,lambda)
-  R<-f/S
+  f <- 2*dnorm(at)*At*pnorm(lambda*at)
+  S <- 1-psn(at,0,1,lambda)
+  R <- f/S
   return(R)
 }
 
@@ -156,10 +140,10 @@ Fbssn<-function(ti,alpha=0.5,beta=1,lambda=2)
 #legend(0.1,23,c(expression(lambda==0.75),expression(lambda==1),expression(lambda==1.5),expression(lambda==2)),col=c("deepskyblue4","firebrick1","darkmagenta","aquamarine4"),lty=1:4,lwd=2,seg.len=2,cex=0.9,box.lty=1,bg=NULL)
 
 
-meanbssn = function(alpha=0.5,beta=1,lambda=2)
+meanbssn <- function(alpha=0.5,beta=1,lambda=2)
 {
-  k<- 1
-  W<- vector(mode = "numeric", length = length(k))
+  k <- 1
+  W <- vector(mode = "numeric", length = length(k))
 
   for(i in 1:length(k))
   {
@@ -172,7 +156,7 @@ meanbssn = function(alpha=0.5,beta=1,lambda=2)
 }
 
 
-varbssn = function(alpha=0.5,beta=1,lambda=2)
+varbssn <- function(alpha=0.5,beta=1,lambda=2)
 {
   k <- seq(1,3,2)
   W <- vector(mode = "numeric", length = length(k))
@@ -190,7 +174,7 @@ varbssn = function(alpha=0.5,beta=1,lambda=2)
   return(varbssnresult)
 }
 
-skewbssn = function(alpha=0.5,beta=1,lambda=2)
+skewbssn <- function(alpha=0.5,beta=1,lambda=2)
 {
   k <- seq(1,7,2)
   W <- vector(mode = "numeric", length = length(k))
@@ -210,15 +194,15 @@ skewbssn = function(alpha=0.5,beta=1,lambda=2)
 }
 skewbssn(alpha=0.5,beta=1,lambda=2)
 
-kurtbssn = function(alpha=0.5,beta=1,lambda=2)
+kurtbssn <- function(alpha=0.5,beta=1,lambda=2)
 {
   k <- seq(1,7,2)
   W <- vector(mode = "numeric", length = length(k))
 
   for(i in 1:length(k))
   {
-    f      <-function (z) z^k[i]*sqrt(alpha^2*z^2 + 4)*dsn(z,0,1,lambda)
-    W[i]   <-integrate(f,lower = -Inf, upper = Inf)$value
+    f      <- function (z) z^k[i]*sqrt(alpha^2*z^2 + 4)*dsn(z,0,1,lambda)
+    W[i]   <- integrate(f,lower = -Inf, upper = Inf)$value
   }
 
   ET       <- (beta/2)*(2+alpha^2+alpha*W[1])
@@ -233,7 +217,7 @@ kurtbssn = function(alpha=0.5,beta=1,lambda=2)
 
 #Observed Information Matrix
 
-Infmatrix<-function(ti,alpha,beta,lambda)
+Infmatrix <- function(ti,alpha,beta,lambda)
 {
   n    <- length(ti)
   at   <- (1/alpha)*(sqrt(ti/beta)-sqrt(beta/ti))
@@ -251,4 +235,28 @@ Infmatrix<-function(ti,alpha,beta,lambda)
   Iobs <- rbind(r1,r2,r3)
   Iobs <- as.matrix(-Iobs)
   return(Iobs)
+}
+
+
+#For computer initial values of beta
+
+mmmeth <- function(ti)
+{
+  S <- function(ti)
+  {
+    n <- length(ti)
+    return((1/n)*sum(ti))
+  }
+
+  R <- function(ti)
+  {
+    n <- length(ti)
+    return(((1/n)*sum(ti^(-1)))^(-1))
+  }
+
+  beta0ini  <- (S(ti)*R(ti))^0.5
+  alpha0ini <- sqrt(2)*((S(ti)/R(ti))^0.5 - 1)^0.5
+
+  result   <- list(beta0init = beta0ini,alpha0ini=alpha0ini, n = length(ti))
+  return(result)
 }

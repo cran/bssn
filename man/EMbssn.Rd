@@ -7,7 +7,7 @@ EM Algorithm Birnbaum-Saunders model based on Skew-Normal distribution
 Performs the EM algorithm for Birnbaum-Saunders model based on Skew-Normal distribution.
 }
 \usage{
-EMbssn(ti,alpha,beta,delta,loglik=F,accuracy = 1e-8)
+EMbssn(ti,alpha,beta,delta,loglik=F,accuracy = 1e-8,show.envelope = "FALSE")
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -15,7 +15,7 @@ EMbssn(ti,alpha,beta,delta,loglik=F,accuracy = 1e-8)
 the response vector of dimension \eqn{n} where \eqn{n} is the total of observations.
 }
   \item{alpha,beta,delta}{
-  an numeric  of initial estimates    for the fixed effects.
+  an numeric  of initial estimates.
 }
 \item{loglik}{
 showvalue of the log-likelihood (V) or not (F).
@@ -24,7 +24,11 @@ showvalue of the log-likelihood (V) or not (F).
 the convergence maximum error.
 }
 
+\item{show.envelope}{
+TRUE or FALSE. Indicates if envelope graph should be built for the fitted model. Default is FALSE.}
 }
+
+
 %\details{
 %}
 \value{
@@ -74,7 +78,7 @@ attach(ozone)
  delta0    <- lambda0/sqrt(1+lambda0^2)
 
 #Estimated parameters of the model (by default)
- est_param <- EMbssn(ti,alpha0,beta0,delta0,loglik=F,accuracy = 1e-8)
+ est_param <- EMbssn(ti,alpha0,beta0,delta0,loglik=F,accuracy = 1e-8,show.envelope="FALSE")
 
 #ML estimates
  alpha     <- est_param$res$alpha
