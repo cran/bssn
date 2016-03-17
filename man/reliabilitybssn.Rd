@@ -9,8 +9,8 @@
 \description{Two useful descriptors in reliability analysis are the reliability function (rf), and the failure rate (fr) function or hazard function. For a non-negative random variable \eqn{t} with pdf \eqn{f(t)} (and cdf \eqn{F(t)}), its distribution can be characterized equally in terms of the rf, or of the fr, which are respectively defined by \eqn{R(t)=1-F(t)}, and \eqn{h(t)=f(t)/R(t)}, for \eqn{t>0},and \eqn{0<R(t)<1}.
 }
 \usage{
-Rebssn(ti,alpha=0.5,beta=1,lambda=2)
-Fbssn(ti,alpha=0.5,beta=1,lambda=2)
+Rebssn(ti,alpha=0.5,beta=1,lambda=1.5)
+Fbssn(ti,alpha=0.5,beta=1,lambda=1.5)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -62,7 +62,7 @@ matplot(ti,den,type="l", col=c("deepskyblue4","firebrick1","darkmagenta","aquama
 ylab="S(t)", xlab="t",lwd=2)
 legend(1.5,1,c(expression(alpha==0.75), expression(alpha==1), expression(alpha==1.5),
 expression(alpha==2)),col= c("deepskyblue4","firebrick1","darkmagenta","aquamarine4"),
-lty=1:4,lwd=2,seg.len=2,cex=0.9,box.lty=1,bg=NULL)
+lty=1:4,lwd=2,seg.len=2,cex=0.9,box.lty=0,bg=NULL)
 
 
 ## Let's compute some hazard functions for a Birnbaum Saunders model based on
@@ -76,8 +76,8 @@ f4  <- Fbssn(ti,0.5,1,-4)
 den <- cbind(f1,f2,f3,f4)
 matplot(ti,den,type = "l", col = c("deepskyblue4","firebrick1", "darkmagenta", "aquamarine4"),
 ylab = "h(t)" , xlab="t",lwd=2)
-legend(0.1,23, c(expression(lambda==0.75), expression(lambda==1), expression(lambda == 1.5),
-expression(lambda == 2)), col = c("deepskyblue4", "firebrick1", "darkmagenta","aquamarine4"),
+legend(0.1,23, c(expression(lambda==-1), expression(lambda==-2), expression(lambda == -3),
+expression(lambda == -4)), col = c("deepskyblue4", "firebrick1", "darkmagenta","aquamarine4"),
 lty=1:4,lwd=2,seg.len=2,cex=0.9,box.lty=1,bg=NULL)
 
 }

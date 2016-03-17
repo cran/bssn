@@ -5,17 +5,19 @@
 \alias{qbssn}
 \alias{rbssn}
 \alias{rmixbssn}
+\alias{mmmeth}
 
 \title{Birnbaum-Saunders model based on Skew-Normal distribution}
 
-\description{It provides the density, distribution function, quantile function, random number generator, likelihood function, moments and EM algorithm for Maximum Likelihood estimators for a given sample, all this for the three parameter Birnbaum-Saunders model based on Skew-Normal Distribution. Also, we have the random number generator for the mixture of Birbaum-Saunders model based on Skew-Normal distribution.
+\description{It provides the density, distribution function, quantile function, random number generator, likelihood function, moments and EM algorithm for Maximum Likelihood estimators for a given sample, all this for the three parameter Birnbaum-Saunders model based on Skew-Normal Distribution. Also, we have the random number generator for the mixture of Birbaum-Saunders model based on Skew-Normal distribution. Finally, the function mmmeth() is used to find the initial values for the parameters alpha and beta using modified-moment method.
 }
 \usage{
-dbssn(ti, alpha=0.5, beta=1, lambda=2)
-pbssn(q,  alpha=0.5, beta=1, lambda=2)
-qbssn(p,  alpha=0.5, beta=1, lambda=2)
-rbssn(n,  alpha=0.5, beta=1, lambda=2)
+dbssn(ti, alpha=0.5, beta=1, lambda=1.5)
+pbssn(q,  alpha=0.5, beta=1, lambda=1.5)
+qbssn(p,  alpha=0.5, beta=1, lambda=1.5)
+rbssn(n,  alpha=0.5, beta=1, lambda=1.5)
 rmixbssn(n,alpha,beta,lambda,pii)
+mmmeth(ti)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -45,9 +47,9 @@ skewness parameter.
 
 }
 \details{
-If \code{alpha}, \code{sigma} or \code{lambda} are not specified they assume the default values of 0.5, 1 and 2, respectively, belonging to the Birnbaum-Saunders model based on Skew-Normal distribution denoted by \eqn{BSSN(0.5,1,2)}.
+If \code{alpha}, \code{sigma} or \code{lambda} are not specified they assume the default values of 0.5, 1 and 1.5, respectively, belonging to the Birnbaum-Saunders model based on Skew-Normal distribution denoted by \eqn{BSSN(0.5,1,1.5)}.
 
-As discussed in Filidor et. al (2011) we say that a random variable T is distributed as an BSSN with shape parameter \eqn{\alpha>0}, scale parameter \eqn{\beta>0} and skewness parameter \eqn{\lambda} in \eqn{Real}, if its probability density function (pdf) is given by
+As discussed in Filidor et. al (2011) we say that a random variable T is distributed as an BSSN with shape parameter \eqn{\alpha>0}, scale parameter \eqn{\beta>0} and skewness parameter \eqn{\lambda} in \eqn{R}, if its probability density function (pdf) is given by
 
 \deqn{f(t)=2\phi(a(t;\alpha,\beta))\Phi(\lambda a(t;\alpha,\beta))A(t;\alpha,\beta), t>0}
 
@@ -85,11 +87,11 @@ Santana, Lucia; Vilca, Filidor; Leiva, Victor (2011). Influence analysis in skew
 
 ## Density
  sseq <- seq(0,3,0.01)
- dens <- dbssn(sseq,alpha=0.2,beta=1,lambda=1)
+ dens <- dbssn(sseq,alpha=0.2,beta=1,lambda=1.5)
  plot(sseq, dens,type="l", lwd=2,col="red", xlab="x", ylab="f(x)", main="BSSN Density function")
 
-#Fiffering densities on a graph
-#positive values of lambda
+# Differing densities on a graph
+# positive values of lambda
  y   <- seq(0,3,0.01)
  f1  <- dbssn(y,0.2,1,1)
  f2  <- dbssn(y,0.2,1,2)

@@ -7,7 +7,8 @@ EM Algorithm Birnbaum-Saunders model based on Skew-Normal distribution
 Performs the EM algorithm for Birnbaum-Saunders model based on Skew-Normal distribution.
 }
 \usage{
-EMbssn(ti,alpha,beta,delta,loglik=F,accuracy = 1e-8,show.envelope = "FALSE")
+EMbssn(ti,alpha,beta,delta,loglik=F,accuracy=1e-8,
+show.envelope="FALSE",iter.max=500)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -26,7 +27,11 @@ the convergence maximum error.
 
 \item{show.envelope}{
 TRUE or FALSE. Indicates if envelope graph should be built for the fitted model. Default is FALSE.}
+
+\item{iter.max}{
+The maximum number of iterations of the EM algorithm}
 }
+
 
 
 %\details{
@@ -78,7 +83,8 @@ attach(ozone)
  delta0    <- lambda0/sqrt(1+lambda0^2)
 
 #Estimated parameters of the model (by default)
- est_param <- EMbssn(ti,alpha0,beta0,delta0,loglik=F,accuracy = 1e-8,show.envelope="FALSE")
+ est_param <- EMbssn(ti,alpha0,beta0,delta0,loglik=T,
+ accuracy = 1e-8,show.envelope = "TRUE", iter.max=500)
 
 #ML estimates
  alpha     <- est_param$res$alpha
@@ -99,21 +105,22 @@ Estimates
 -----------
 
        Estimate Std. Error z value Pr(>|z|)
-alpha   1.27026    0.23614 5.37924  0.00000
-beta   14.83519    4.03003 3.68116  0.00023
-lambda  1.06675    0.53478 1.99475  0.04607
+alpha   1.26014    0.23673 5.32311  0.00000
+beta   14.65730    4.01984 3.64624  0.00027
+lambda  1.06277    0.54305 1.95706  0.05034
 ------------------------
 Model selection criteria
 ------------------------
 
         Loglik   AIC   BIC   HQC
-Value -545.606 4.729 4.765 4.744
+Value -542.768 4.705 4.741 4.719
 -------
 Details
 -------
 
-Iterations = 610
-Processing time = 1.551089 secs
+Iterations = 415
+Processing time = 0.4283214 secs
+Convergence = TRUE
 }
 }
 

@@ -1,7 +1,7 @@
-EMbssn <- function(ti,alpha,beta,delta,loglik=F,accuracy = 1e-8,show.envelope="FALSE")
+EMbssn <- function(ti,alpha,beta,delta,loglik=F,accuracy = 1e-8,show.envelope="FALSE",iter.max = 500)
 {
   #Running the algorithm
-  out <- algEMbssn(ti,alpha,beta,delta,loglik=F,accuracy,show.envelope)
+  out <- algEMbssn(ti,alpha,beta,delta,loglik,accuracy,show.envelope,iter.max)
 
   #show result
   cat('\n')
@@ -32,7 +32,9 @@ EMbssn <- function(ti,alpha,beta,delta,loglik=F,accuracy = 1e-8,show.envelope="F
   cat('\n')
   cat("Processing time =",out$result$time,units(out$result$time))
   cat('\n')
-  res            <- list(iter = out$result$iter,criterion = out$result$criterion, alpha=out$result$alpha, beta=out$result$beta, lambda=out$result$lambda, SE=out$result$EP,table = out$result$table,loglik=out$result$loglik, AIC=out$result$AIC, BIC=out$result$BIC, HQC=out$result$HQC, time = out$result$time)
+  cat("Convergence =",out$result$convergence)
+  cat('\n')
+  res            <- list(iter = out$result$iter,criterion = out$result$criterion, alpha=out$result$alpha, beta=out$result$beta, lambda=out$result$lambda, SE=out$result$EP,table = out$result$table,loglik=out$result$loglik, AIC=out$result$AIC, BIC=out$result$BIC, HQC=out$result$HQC, time = out$result$time, convergence = out$result$convergence)
   obj.out        <- list(res = res)
   class(obj.out) <-  "bssn"
   return(obj.out)

@@ -1,3 +1,4 @@
+export(mmmeth)
 export(EMbssn)
 export(dbssn)
 export(pbssn)
