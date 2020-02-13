@@ -1,6 +1,19 @@
-EMbssn <- function(ti,alpha,beta,delta,loglik=F,accuracy = 1e-8,show.envelope="FALSE",iter.max = 500)
+EMbssn <- function(ti,alpha,beta,delta,initial.values=FALSE, loglik=F,accuracy = 1e-8,show.envelope="FALSE",iter.max = 500)
 {
   #Running the algorithm
+
+  if(initial.values==TRUE)
+  {
+    initial   <- mmmeth(ti)
+    alpha     <- initial$alpha0ini
+    beta      <- initial$beta0init
+    at        <- (1/alpha)*(sqrt(ti/beta)-sqrt(beta/ti))
+    estimdp   <- msn.mle(y=at)
+    lambda    <- estimdp$dp$alpha
+    delta     <- lambda/sqrt(1+lambda^2)
+  }
+
+
   out <- algEMbssn(ti,alpha,beta,delta,loglik,accuracy,show.envelope,iter.max)
 
   #show result
@@ -20,9 +33,9 @@ EMbssn <- function(ti,alpha,beta,delta,loglik=F,accuracy = 1e-8,show.envelope="F
   cat('Model selection criteria\n')
   cat('------------------------\n')
   cat('\n')
-  critFin  <- c(out$result$loglik, out$result$AIC, out$result$BIC, out$result$HQC)
+  critFin  <- c(out$result$loglik, out$result$AIC, out$result$BIC, out$result$EDC)
   critFin  <- round(t(as.matrix(critFin)),digits=3)
-  dimnames(critFin) <- list(c("Value"),c("Loglik", "AIC", "BIC","HQC"))
+  dimnames(critFin) <- list(c("Value"),c("Loglik", "AIC", "BIC","EDC"))
   print(critFin)
   cat('-------\n')
   cat('Details\n')

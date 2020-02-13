@@ -7,26 +7,26 @@ EM Algorithm Birnbaum-Saunders model based on Skew-Normal distribution
 Performs the EM algorithm for Birnbaum-Saunders model based on Skew-Normal distribution.
 }
 \usage{
-EMbssn(ti,alpha,beta,delta,loglik=F,accuracy=1e-8,
+EMbssn(ti,alpha,beta,delta,initial.values=FALSE, loglik=F,accuracy=1e-8,
 show.envelope="FALSE",iter.max=500)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{ti}{
-the response vector of dimension \eqn{n} where \eqn{n} is the total of observations.
+Vector of observations.
 }
   \item{alpha,beta,delta}{
-  an numeric  of initial estimates.
+  Initial values.
 }
-\item{loglik}{
-showvalue of the log-likelihood (V) or not (F).
+\item{initial.values}{Logical; if TRUE, get the initial values for the parameters.
+}
+\item{loglik}{Logical; if TRUE, showvalue of the log-likelihood.
 }
   \item{accuracy}{
-the convergence maximum error.
+The convergence maximum error.
 }
 
-\item{show.envelope}{
-TRUE or FALSE. Indicates if envelope graph should be built for the fitted model. Default is FALSE.}
+\item{show.envelope}{Logical; if TRUE, show the simulated envelope for the fitted model.}
 
 \item{iter.max}{
 The maximum number of iterations of the EM algorithm}
@@ -39,13 +39,13 @@ The maximum number of iterations of the EM algorithm}
 \value{
 The function returns a list with 11 elements detailed as
 
-\item{iter}{number of iterations.}
-\item{alpha}{estimated shape parameter.}
-\item{beta}{estimated scale parameter.}
-\item{lambda}{estimate skewness parameter.}
-\item{SE}{Standard Error estimates.}
-\item{table}{Table containing the inference for the estimated parameters.}
-\item{loglik}{Log-likelihood value.}
+\item{iter}{Number of iterations.}
+\item{alpha}{Returns the value of the MLE of the shape parameter.}
+\item{beta}{Returns the value of the MLE of the scale parameter.}
+\item{lambda}{Returns the value of the MLE of the skewness parameter.}
+\item{SE}{Standard Errors of the ML estimates.}
+\item{table}{Table containing the ML estimates with the corresponding standard errors.}
+\item{loglik}{Log-likelihood.}
 \item{AIC}{Akaike information criterion.}
 \item{BIC}{Bayesian information criterion.}
 \item{HQC}{Hannan-Quinn information criterion.}

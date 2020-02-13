@@ -2,7 +2,7 @@
 \alias{bssn-package}
 \docType{package}
 \title{
-Birnbaum-Saunders model based on Skew-Normal distribution
+Birnbaum-Saunders model
 }
 \description{
 It provides the density, distribution function, quantile function,
@@ -10,14 +10,14 @@ random number generator, reliability function, failure rate, likelihood function
 moments and EM algorithm for Maximum Likelihood estimators, also empirical quantile
 and generated envelope for a given sample, all this for the three parameter
 Birnbaum-Saunders model based on Skew-Normal Distribution.
-Additionally, it provides the random number generator for the mixture of Birbaum-Saunders model based on Skew-Normal distribution.
+Also, it provides the random number generator for the mixture of Birbaum-Saunders model based on Skew-Normal distribution. Additionally, we incorporate the EM algorithm based on the assumption that the error term follows a finite mixture of Sinh-normal distributions.
 }
 \details{
 \tabular{ll}{
 Package: \tab bssn\cr
 Type: \tab Package\cr
-Version: \tab 0.6\cr
-Date: \tab 2015-09-07\cr
+Version: \tab 1.5\cr
+Date: \tab 2020-02-12\cr
 License: \tab GPL (>=2)\cr
 }
 }
@@ -34,7 +34,7 @@ Santana, Lucia; Vilca, Filidor; Leiva, Victor (2011). Influence analysis in skew
 \keyword{package}
 
 \seealso{
-\code{\link{bssn}}, \code{\link{EMbssn}}, \code{\link{momentsbssn}}, \code{\link{ozone}}, \code{\link{reliabilitybssn}}
+\code{\link{bssn}}, \code{\link{EMbssn}}, \code{\link{momentsbssn}}, \code{\link{ozone}}, \code{\link{reliabilitybssn}}, \code{\link{FMshnReg}}
 }
 
 \examples{

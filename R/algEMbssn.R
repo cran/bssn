@@ -49,15 +49,15 @@ algEMbssn<-function(ti,alpha,beta,delta,loglik=F,accuracy = 1e-8,show.envelope="
  } else {
   result    <- list(alpha=alpha, beta=beta, lambda=lambda, delta=delta,convergence=criterion < accuracy,iter=count,n= length(ti))
  }
- EP              <- sqrt(diag(solve(Infmatrix(ti,alpha,beta,lambda))))
+ EP         <- Infmatrix(ti,alpha,beta,lambda)$EP
  parameters <- rbind(alpha,beta,lambda)
  table      <- data.frame(parameters,EP,parameters/EP,2*pnorm(abs(parameters/EP),lower.tail = F))
 
  p          <- length(tetha)
- loglik     <- sum(log(dbssn(ti, alpha, beta, lambda)))
- AIC        <- (-loglik/n)+(p/n)
- BIC        <- (-loglik/n)+((p/2)*(log(n)/n))
- HQC        <- (-loglik/n)+(p*log(log(n))/n)
+ lk     <- sum(log(dbssn(ti, alpha, beta, lambda)))
+ AIC        <- -2*lk + 2*p
+ BIC        <- -2*lk + log(n)*p
+ EDC        <- -2*lk + 0.2*sqrt(n)*p
 
  rownames(table) <- c("alpha","beta","lambda")
  colnames(table) <- c("Estimate","Std. Error","z value","Pr(>|z|)")
@@ -96,7 +96,7 @@ algEMbssn<-function(ti,alpha,beta,delta,loglik=F,accuracy = 1e-8,show.envelope="
   par(new=T); plot(xq2,d22,type="l",ylim=fy,xlab="",ylab="")
  }
 
- result     <- list(alpha=alpha,betat=beta,lambda=lambda,iter=count,criterion = criterion, n=length(t),EP=EP,table=table,loglik=loglik, AIC=AIC, BIC=BIC, HQC=HQC, time = time.taken, convergence = criterion<accuracy, iter.max=iter.max)
+ result     <- list(alpha=alpha,betat=beta,lambda=lambda,iter=count,criterion = criterion, n=length(t),EP=EP,table=table,loglik=lk, AIC=AIC, BIC=BIC, EDC=EDC, time = time.taken, convergence = criterion<accuracy, iter.max=iter.max)
 
  obj.out    <- list(result = result)
  class(obj.out)  =  "bssn"
